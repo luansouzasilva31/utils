@@ -2,6 +2,13 @@ import matplotlib.pyplot as plt
 
 
 def plot_images(images: list , titles: list = None , grid: tuple = None) :
+    '''
+    Function for plotting N images organized in grid format.
+    :param images: list of np.ndarray images
+    :param titles: list of str titles
+    :param grid: tuple containing the grid shape
+    :return:
+    '''
     # Checking titles
     if titles :
         assert len(images) == len(titles) , 'The number of titles must match the number of images.'
@@ -19,6 +26,7 @@ def plot_images(images: list , titles: list = None , grid: tuple = None) :
         grid = list(i + 1 for i , _ in enumerate(images) if len(images) / (i + 1) <= (i + 1))
         grid = (grid[0] , grid[0]) if grid[0] ** 2 == len(images) else (grid[0] , grid[0] - 1)
     
+    # Creating plotting section
     fig , axis = plt.subplots(nrows=grid[0] , ncols=grid[1])
     
     count = 0
