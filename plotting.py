@@ -11,7 +11,7 @@ def plot_images(images: list , titles: list = None , grid: tuple = None) :
     '''
     # Checking titles
     if titles :
-        assert len(images) == len(titles) , 'The number of titles must match the number of images.'
+        assert len(images) == len(titles) > 0 , 'The number of titles must match the number of images.'
     else :
         titles = ['' for i in images]
     
@@ -30,10 +30,21 @@ def plot_images(images: list , titles: list = None , grid: tuple = None) :
     fig , axis = plt.subplots(nrows=grid[0] , ncols=grid[1])
     
     count = 0
-    for i in range(grid[0]) :
-        for j in range(grid[1]) :
-            axis[i , j].imshow(images[count])
-            axis[i , j].set_title(titles[count])
+    if grid[0] == 1 and grid[1] == 1 :
+        axis.imshow(images[count])
+        axis.set_title(titles[count])
+    
+    elif grid[0] == 1 or grid[1] == 1 :
+        for i in range(max(grid[0] , grid[1])) :
+            axis[i].imshow(images[count])
+            axis[i].set_title(titles[count])
             count += 1
+    
+    else :
+        for i in range(grid[0]) :
+            for j in range(grid[1]) :
+                axis[i , j].imshow(images[count])
+                axis[i , j].set_title(titles[count])
+                count += 1
     
     plt.show(block=True)
